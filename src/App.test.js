@@ -1,36 +1,35 @@
-import { render, screen } from '@testing-library/react';
 import App from './App';
-import axios from 'axios';
-jest.mock('axios');
-test('renders learn react link', () => {
-  render(<App />);
-  //const linkElement = screen.getByText(/learn react/i);
-  // expect.toBe(true);
-  const data={
-    data:{
-      hits:[
-        {
-          objectid:'1',
-        }
-      ]
-    }
-  };
-  axios.get.mockImplementationOnce(()=>Promise.resolve(data));
+import Adapter from 'enzyme-adapter-react-16'
+import { mount, configure } from "enzyme";
+
+configure({ adapter: new Adapter() })
+
+describe("Renders Header Componenet", () => {
+    let wrapper;
+    beforeEach(() => {
+        wrapper = mount(<App />)
+    });
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it("renders without crashing", () => {
+        expect(wrapper.length).toEqual(1);
+    });
+
+    it("should trigger onChange", () => {
+        const search = wrapper.find("input")
+        search.props().value = "BTC";
+        search.simulate("change", {
+            target: { value: "btc" }
+        });
+        expect(search.props().value).toEqual("BTC");
+        search.simulate("change", {
+            target: { value: "" }
+        });
+        expect(search.props().value).toEqual("BTC");
+    });
 });
 
 
 
-describe('fetchdata',()=>{
-  test('fetchdata scucces',async()=>{
-    const data={
-      data:{
-        hits:[
-          {
-            objectid:'1',
-          }
-        ]
-      }
-    };
-    axios.get.mockImplementationOnce(()=>Promise.resolve(data));
-  })
-});

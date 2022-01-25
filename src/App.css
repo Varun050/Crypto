@@ -1,0 +1,25 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #343a40!important;
+    font-size: 1rem;
+    color:whitesmoke;
+    height: 6%;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    align-items:center;
+
+}
+
+p{
+    margin-top:13px;
+}
+.App{
+    height:80%;
+    margin-bottom: 5%;
+}
+
+ 
+
+ 
